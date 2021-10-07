@@ -1,0 +1,45 @@
+import os 
+import requests
+
+def reset ():
+  answer = str(input("Do you want to start over?   y/n   ")).lower()
+  if answer == "y" or answer == "n":
+    if answer == "n":
+      print("n, bye!")
+    elif answer == "y":
+      main()
+  else :
+    print("That's not a valid answer:")
+    reset() 
+
+
+
+
+
+def main () :
+  os.system("clear")
+  print("Welcome to IsItDown.py!\nPlease wirte a URL or URLs you want to check. (seperated by coma)")
+  urls = str(input()). lower().split(",")
+  for url in urls :
+    url = url.strip()
+    if "." not in url :
+      print("{}is not a valid url.".format(url))
+      reset()
+      
+    else : 
+      if "http" not in urls :
+        url = "https://{}".format(url)
+      try :
+        request = requests.get(url)
+        if request.status_code == 200:
+          print(f"{url} is up!")
+          
+        else :
+          print(f"{url} is down!")
+          
+      except :
+        print(f"{url} is down!")
+       
+  
+
+
